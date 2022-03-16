@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ProviderStore } from './store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ProviderStore>
+      <App />
+    </ProviderStore>
   </React.StrictMode>,
   document.getElementById('root')
 );

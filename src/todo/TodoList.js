@@ -1,15 +1,31 @@
 import TodoItem from "./TodoItem";
+import { useStore, actions } from "../store"
 function TodoList() {
+    
+    const [ state, dispatch ] = useStore();
+    const { todos, filters, filter } = state;
+
+    const { toggleAllTodo } = actions;
+
     return (
-        <section class="main">
+        <section className="main">
             <input 
                 id="toggle-all" 
-                class="toggle-all" 
+                className="toggle-all" 
                 type="checkbox"
+                onChange={(e) => { dispatch(toggleAllTodo()) }}
+                checked={todos.every(filters['completed'])}
             />
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list">
-                <TodoItem />
+            <label htmlFor="toggle-all">Mark all as complete</label>
+            <ul className="todo-list">
+                { todos.filter(filters[filter]).map( (todo, index) => 
+                    <TodoItem 
+                        key={index}
+                        todo={todo}
+                        todoIndex={index}
+                    /> )
+                }
+                
             </ul>
         </section>
     )
